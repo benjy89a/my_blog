@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "딸기 생크림 케이크", "price": 32000, "category": "케이크", "image": "", "soldOut": false },
+  { "id": 2, "name": "초콜릿 케이크", "price": 35000, "category": "케이크", "image": "", "soldOut": true },
+  { "id": 3, "name": "레몬 마들렌", "price": 12000, "category": "구움과자", "image": "", "soldOut": false },
+  { "id": 4, "name": "버터 휘낭시에", "price": 14000, "category": "구움과자", "image": "", "soldOut": false },
+  { "id": 5, "name": "바닐라 마카롱", "price": 18000, "category": "마카롱", "image": "", "soldOut": true },
+  { "id": 6, "name": "말차 쿠키", "price": 10000, "category": "쿠키", "image": "", "soldOut": false }
+]

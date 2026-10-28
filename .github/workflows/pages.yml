@@ -1,0 +1,70 @@
+# main에 올릴 때마다 블로그 전체를 빌드해서 GitHub Pages에 배포한다.
+# 1) 기존처럼 Jekyll로 블로그(README, my-game 등)를 만들고
+# 2) React(my-todo)와 Next.js(dessert-shop)는 빌드한 결과물로 덮어쓴다.
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build blog with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build my-todo (React + Vite)
+        working-directory: my-todo
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build dessert-shop (Next.js)
+        working-directory: dessert-shop
+        env:
+          NEXT_BASE_PATH: /my_blog/dessert-shop
+        run: |
+          npm ci
+          npm run build
+
+      - name: Replace source folders with build output
+        run: |
+          sudo rm -rf _site/my-todo _site/dessert-shop
+          sudo cp -r my-todo/dist _site/my-todo
+          sudo cp -r dessert-shop/out _site/dessert-shop
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

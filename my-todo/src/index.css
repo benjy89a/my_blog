@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f5f6f8;
+  color: #222;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 왼쪽 목록 영역 */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #e3e5e8;
+  padding: 20px 12px;
+}
+
+.sidebar h2 {
+  font-size: 15px;
+  margin: 0 0 12px 8px;
+  color: #666;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.list-button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.list-button:hover {
+  background: #f0f1f3;
+}
+
+.list-button.selected {
+  background: #e6efff;
+  color: #2563eb;
+  font-weight: bold;
+}
+
+/* 오른쪽 할 일 영역 */
+.panel {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px;
+}
+
+.panel h1 {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.todo .title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  cursor: text;
+}
+
+.todo.done .title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.edit-input {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 6px;
+}
+
+.delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.delete:hover {
+  opacity: 1;
+}
+
+.empty {
+  color: #999;
+}
+
+/* 입력 칸 + 추가 버튼 */
+.add-form {
+  display: flex;
+  gap: 6px;
+}
+
+.add-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #d5d8dc;
+  border-radius: 6px;
+}
+
+.add-form button {
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sidebar .add-form {
+  flex-direction: column;
+}
+
+/* 좁은 화면(휴대폰)에서는 목록을 위, 할 일을 아래로 */
+@media (max-width: 640px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+    border-right: none;
+    border-bottom: 1px solid #e3e5e8;
+  }
+
+  .panel {
+    padding: 20px 16px;
+  }
+}
